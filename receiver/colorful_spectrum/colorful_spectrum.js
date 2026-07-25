@@ -41,10 +41,10 @@ Plugins.colorful_spectrum.init = async function () {
         var data_height = Math.abs(thisArg.max - thisArg.min);
         var spec_width = thisArg.el.offsetWidth;
         var spec_height = thisArg.el.offsetHeight;
+        var x_ratio = data_width / spec_width;
+        var y_ratio = spec_height / data_height;
         if (spec_width <= data_width) {
-          var x_ratio = data_width / spec_width;
-          var y_ratio = spec_height / data_height;
-          for (var x = 0; x < spec_width; x++) {
+            for (var x = 0; x < spec_width; x++) {
             var data = (thisArg.data[data_start + ((x * x_ratio) | 0)]);
             var y = (data - thisArg.min) * y_ratio;
             thisArg.ctx.fillRect(x, spec_height, 1, -y);
@@ -54,7 +54,22 @@ Plugins.colorful_spectrum.init = async function () {
                 c[0] + ", " + c[1] + ", " + c[2] + ", " +
                 (25 + y * 2) + "%)";
             }
-          }
+           }
+        }else{
+            var x_pos   = 0;
+            for(var x=0; x<data_width; x++) {
+            var data = (thisArg.data[data_start + x]);
+            var y = (data - thisArg.min) * y_ratio;
+            var k = (((x + 1) * spec_width) / data_width) | 0;
+            thisArg.ctx.fillRect(x_pos, spec_height, k - x_pos, -y);
+            if (data) {
+              var c = Waterfall.makeColor(data);
+              thisArg.ctx.fillStyle = "rgba(" +
+                c[0] + ", " + c[1] + ", " + c[2] + ", " +
+                (25 + y * 2) + "%)";
+            }
+            x_pos = k;
+           }
         }
       },
       spectrum
