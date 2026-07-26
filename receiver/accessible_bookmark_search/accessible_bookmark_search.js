@@ -100,7 +100,7 @@ Plugins.accessible_bookmark_search.init = async function () {
 			});
 
 			result.sort(function (a, b) {
-				return (a.name.localeCompare(b.name) || (a.frequency - b.frequency));
+				return (a.name.localeCompare(b.name, undefined, { numeric: true }) || (a.frequency - b.frequency));
 			});
 
 			this.searchResults = result;
