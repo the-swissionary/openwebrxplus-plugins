@@ -31,10 +31,12 @@
  * Changes:
  * 0.1:
  *  - initial release
+ * 0.2:
+ *  - sort results naturally by number (e.g. CB1, CB2, CB10) instead of lexicographically
  */
 
 Plugins.accessible_bookmark_search.no_css = true;
-Plugins.accessible_bookmark_search._version = 0.1;
+Plugins.accessible_bookmark_search._version = 0.2;
 
 Plugins.accessible_bookmark_search.init = async function () {
 	if (!Plugins.isLoaded('utils', 0.4)) {
